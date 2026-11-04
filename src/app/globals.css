@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme {
+  --color-vinho-950: #1c0406;
+  --color-vinho-900: #2b070a;
+  --color-vinho-800: #3d0b0f;
+  --color-vinho-700: #5a1117;
+  --color-rubi-600: #b3191d;
+  --color-rubi-500: #d32a22;
+  --color-rubi-300: #f2a199;
+  --color-rubi-100: #fbe5e2;
+  --color-rubi-50: #fdf3f1;
+  --color-placa: #6e6766;
+  --color-tinta: #1f1112;
+  --color-texto: #4a3a3b;
+  --color-suave: #6b5a5b;
+  --color-linha: #eee2e0;
+  --color-fundo: #faf5f4;
+  --color-wpp: #15803d;
+  --color-wpp-escuro: #116330;
+  --color-ouro: #f2b84b;
+  --color-ouro-claro: #fcdfa3;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
+
+  --shadow-card: 0 1px 2px rgb(31 17 18 / 0.04), 0 8px 24px -12px rgb(31 17 18 / 0.12);
+  --shadow-card-hover: 0 2px 4px rgb(31 17 18 / 0.06), 0 20px 40px -16px rgb(31 17 18 / 0.22);
+
+  --ease-saida: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #fff;
+  color: var(--color-texto);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-rubi-300);
+  color: var(--color-vinho-900);
+}
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-rubi-500);
+    outline-offset: 3px;
+  }
+}
+
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.anima-subir {
+  animation: subir 0.7s var(--ease-saida) both;
+}
+
+/* Sem opacidade: usado em título e foto principal, que contam para o LCP. */
+@keyframes surgir {
+  from {
+    transform: translateY(14px);
+  }
+}
+
+.anima-surgir {
+  animation: surgir 0.7s var(--ease-saida) both;
+}
+
+@keyframes flutuar {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.anima-flutuar {
+  animation: flutuar 0.9s var(--ease-saida) 0.45s both;
+}
+
+/* Palavra de destaque em serifa itálica dentro dos títulos. */
+.destaque {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Grão fino sobre fundos escuros: tira o aspecto de cor chapada. */
+.grao::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Entrada ao rolar, só CSS. Navegador sem suporte mostra tudo direto. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .revela {
+      animation: subir linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
