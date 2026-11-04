@@ -29,14 +29,14 @@ Variáveis de ambiente (opcionais):
 - `NEXT_PUBLIC_SITE_URL`: URL pública usada nos links da mensagem e no Open Graph
 
 ## Origem dos dados
-Produtos, preços e fotos vêm dos posts do Instagram da loja (@les_colchoes, maio a outubro de 2026). Em `produtos.ts`, cada variação está marcada:
+Produtos e preços vêm dos posts do Instagram da loja (@les_colchoes, maio a outubro de 2026). Fotos: oficiais dos fabricantes sempre que existem (ver `CREDITOS.md`). Em `produtos.ts`, cada variação está marcada:
 - `// post`: preço publicado pela loja (à vista e 12x no cartão). Ofertas "até durar o estoque" podem ter mudado.
 - `// ilustrativo`: o post não tinha preço (Fit Spring Pocket, Exclusivo Sleep, Expressive Pocket, conjunto solteiro espuma firme).
 - Conjunto Ortobom molas + box baú: só a parcela (12x R$ 199) era pública; o à vista é estimado.
 
 ## Pendências para produção
 - Confirmar com o dono: horário de funcionamento, preços atuais, textos da página Sobre e do FAQ.
-- Trocar as fotos recortadas dos posts por fotos em alta (fabricante ou da loja).
+- Pedir ao representante as fotos em alta das linhas exclusivas para lojista (Exclusive Foam, Fit Spring Pocket, Real Vision Black, Omega), que hoje usam recorte das artes.
 - `scripts/postbuild-flatten-rsc.mjs` contorna um descompasso do Next 16.4 no export estático (prefetch de segmentos). Remover quando o Next corrigir.
 
 ## Fase 2 (se fechar)
